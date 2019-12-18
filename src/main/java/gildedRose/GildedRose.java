@@ -1,7 +1,7 @@
 package gildedRose;
 
 public class GildedRose {
-    Item[] items;
+    protected Item[] items;
 
     public GildedRose(Item[] items) {
         this.items = items;
