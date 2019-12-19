@@ -100,6 +100,7 @@ public class GildedRoseTests {
     }
 
     // Aged Brie
+
     @Test
     public void updateStatusForAgedBrieIncreasesQualityByOneIfNotExpired() {
         Item brie1 = new Item("Aged Brie", 10, 10);
@@ -124,49 +125,30 @@ public class GildedRoseTests {
         assertEquals(12, brie2.quality);
     }
 
+    // Backstage Passes
+
+    @Test
+    public void updateStatusForBackstagePassesIncreasesQualityByOneIfMoreThanTenDaysToExpiration() {
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 0   );
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 20, 0   );
+        Item[] items = new Item[]{backstagePass1, backstagePass2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(1, backstagePass1.quality);
+        assertEquals(1, backstagePass2.quality);
+
+
+    }
 }
 
 
 /*
 
-    context "for Aged Brie" do
 
-
-      it "increases the quality of Aged Brie by 1 if the sell_in date is greater than 0" do
-        item = Item.new("Aged Brie", 1, 45)
-        items =[item]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item.quality).to eq 46
-      end
-
-      it "increases the quality of Aged Brie by 2 if the sell_in date is 0 or less" do
-        item_1 = Item.new("Aged Brie", 0, 0)
-        item_2 = Item.new("Aged Brie", -1, 0)
-        items =[item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 2
-        expect(item_2.quality).to eq 2
-      end
-
-
-    end
 
     context "for Backstage passes" do
 
-      it "does not increase the quality of a backstage pass beyond 50" do
-        item_1 = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 50)
-        item_2 = Item.new("Backstage passes to a TAFKAL80ETC concert", 3, 49)
-        items = [item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 50
-        expect(item_2.quality).to eq 50
-      end
 
       it "increases the quality of 1 if the sell_in date is greater than 10" do
         item_1 = Item.new("Backstage passes to a TAFKAL80ETC concert", 20, 0)
