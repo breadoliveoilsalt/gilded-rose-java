@@ -18,44 +18,21 @@ public class GildedRoseTests {
     }
 
     @Test
-    public void updateStatusDoesNotLowerQualityBelowZero() {
-        Item item1 = new Item("Ordinary Item 1", 10, 0);
-        Item item2 = new Item("Ordinary Item 2", -10, 0);
-        Item[] items = new Item[]{item1, item2};
-
-        new GildedRose(items).updateQuality();
-
-        assertEquals(0, item1.quality);
-        assertEquals(0, item2.quality);
-
-    }
-
-    @Test
-    public void updateStatusDoesNotIncreaseQualityAboveFifty() {
-        Item brie = new Item("Aged Brie", 10, 49);
-        Item backstagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49);
-        Item[] items = new Item[]{brie, backstagePass};
-
-        new GildedRose(items).updateQuality();
-
-        assertEquals(50, brie.quality);
-        assertEquals(50, backstagePass.quality);
-    }
-
-    @Test
     public void updateStatusLowersExpirationDateByOneExceptForSulfurasItem() {
+        Item ordinaryItem = new Item("Ordinary Item", 10, 1);
         Item brie = new Item("Aged Brie", 10, 1);
         Item backstagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 1);
-        Item ordinaryItem = new Item("Ordinary Item", 10, 1);
+        Item conjuredItem = new Item("Conjured Item", 10, 1);
         Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 10, 1);
 
-        Item[] items = new Item[]{brie, backstagePass, ordinaryItem, sulfuras};
+        Item[] items = new Item[]{ordinaryItem, brie, backstagePass, conjuredItem, sulfuras};
 
         new GildedRose(items).updateQuality();
 
+        assertEquals(9, ordinaryItem.sellIn);
         assertEquals(9, brie.sellIn);
         assertEquals(9, backstagePass.sellIn);
-        assertEquals(9, ordinaryItem.sellIn);
+        assertEquals(9, conjuredItem.sellIn);
         assertEquals(10, sulfuras.sellIn);
     }
 
@@ -83,6 +60,18 @@ public class GildedRoseTests {
 
         assertEquals(8, item1.quality);
         assertEquals(8, item2.quality);
+    }
+
+    @Test
+    public void updateStatusForNonSpecializedItemsDoesNotLowerQualityBelowZero() {
+        Item item1 = new Item("Ordinary Item 1", 10, 0);
+        Item item2 = new Item("Ordinary Item 2", -10, 0);
+        Item[] items = new Item[]{item1, item2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(0, item1.quality);
+        assertEquals(0, item2.quality);
     }
 
     @Test
@@ -123,6 +112,18 @@ public class GildedRoseTests {
 
         assertEquals(12, brie1.quality);
         assertEquals(12, brie2.quality);
+    }
+
+    @Test
+    public void updateStatusForAgedBrieDoesNotIncreaseQualityAboveFifty() {
+        Item brie1 = new Item("Aged Brie", 10, 49);
+        Item brie2 = new Item("Aged Brie", -10, 49);
+        Item[] items = new Item[]{brie1, brie2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(50, brie1.quality);
+        assertEquals(50, brie2.quality);
     }
 
     // Backstage Passes
@@ -175,6 +176,30 @@ public class GildedRoseTests {
         assertEquals(0, backstagePass2.quality);
     }
 
+    @Test
+    public void updateStatusForBackstagePassesDoesNotIncreaseQualityAboveFifty() {
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 50   );
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49   );
+        Item[] items = new Item[]{backstagePass1, backstagePass2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(50, backstagePass1.quality);
+        assertEquals(50, backstagePass2.quality);
+    }
+
+    @Test
+    public void updateStatusForBackstagePassesDoesNotDecreaseQualityBelowZero() {
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0   );
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", -10, 0   );
+        Item[] items = new Item[]{backstagePass1, backstagePass2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(0, backstagePass1.quality);
+        assertEquals(0, backstagePass2.quality);
+    }
+
     // Sulfuras
 
     @Test
@@ -216,6 +241,17 @@ public class GildedRoseTests {
         assertEquals(6, conjured1.quality);
         assertEquals(6, conjured2.quality);
     }
-}
 
+    @Test
+    public void updateStatusForConjuredItemsDoesNoteLowersQualityBelowZero() {
+        Item conjured1 = new Item("Conjured Item", 0, 0);
+        Item conjured2 = new Item("Conjured Item", -10, 0);
+        Item[] items = new Item[]{conjured1, conjured2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(0, conjured1.quality);
+        assertEquals(0, conjured2.quality);
+    }
+}
 
