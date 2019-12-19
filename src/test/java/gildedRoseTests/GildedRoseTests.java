@@ -141,8 +141,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForBackstagePassesIncreasesQualityByTwoIfSixToTenDaysToExpiration() {
-        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0   );
-        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 6, 0   );
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 6, 0   );
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0   );
         Item[] items = new Item[]{backstagePass1, backstagePass2};
 
         new GildedRose(items).updateQuality();
@@ -153,8 +153,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForBackstagePassesIncreasesQualityByThreeIfOneToFiveDaysToExpiration() {
-        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0   );
-        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 0   );
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 0   );
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0   );
         Item[] items = new Item[]{backstagePass1, backstagePass2};
 
         new GildedRose(items).updateQuality();
@@ -163,6 +163,17 @@ public class GildedRoseTests {
         assertEquals(3, backstagePass2.quality);
     }
 
+    @Test
+    public void updateStatusForBackstagePassesDecreasesQualityToZeroUponExpiration() {
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10   );
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", -10, 10   );
+        Item[] items = new Item[]{backstagePass1, backstagePass2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(0, backstagePass1.quality);
+        assertEquals(0, backstagePass2.quality);
+    }
 
 }
 
@@ -173,26 +184,6 @@ public class GildedRoseTests {
 
     context "for Backstage passes" do
 
-
-      it "increases the quality by 3 if the sell_in date is from 1 to 5" do
-        item_1 = Item.new("Backstage passes to a TAFKAL80ETC concert", 1, 0)
-        item_2 = Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 0)
-        items = [item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 3
-        expect(item_2.quality).to eq 3
-      end
-
-      it "lowers the sell_in date by 1" do
-        item = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 45)
-        items = [item]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item.sell_in).to eq 9
-      end
 
       it "lowers the quality to 0 if the sell_in date is 0 or less" do
         item_1 = Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 45)
