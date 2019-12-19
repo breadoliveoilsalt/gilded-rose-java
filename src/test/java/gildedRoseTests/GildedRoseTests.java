@@ -175,50 +175,25 @@ public class GildedRoseTests {
         assertEquals(0, backstagePass2.quality);
     }
 
+    // Sulfuras
+
+    @Test
+    public void updateStatusForSulfurasDoesNotChangeTheQualityOrExpirationDate() {
+        Item sulfuras1 = new Item("Sulfuras, Hand of Ragnaros", 10, 80);
+        Item sulfuras2 = new Item("Sulfuras, Hand of Ragnaros", -10, -80);
+        Item[] items = new Item[]{sulfuras1, sulfuras2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(80, sulfuras1.quality);
+        assertEquals(10, sulfuras1.sellIn);
+        assertEquals(-80, sulfuras2.quality);
+        assertEquals(-10, sulfuras2.sellIn);
+    }
 }
 
 
 /*
-
-
-
-    context "for Backstage passes" do
-
-
-      it "lowers the quality to 0 if the sell_in date is 0 or less" do
-        item_1 = Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 45)
-        item_2 = Item.new("Backstage passes to a TAFKAL80ETC concert", -1, 45)
-        items = [item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 0
-        expect(item_2.quality).to eq 0
-      end
-
-    end
-
-    context "for Sulfuras" do
-
-      it "does not change the quality of Sulfuras" do
-        item = Item.new("Sulfuras, Hand of Ragnaros", 10, 80)
-        items = [item]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item.quality).to eq 80
-      end
-
-      it "does not lower the sell_in date for Sulfuras" do
-        item = Item.new("Sulfuras, Hand of Ragnaros", 10, 80)
-        items = [item]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item.sell_in).to eq 10
-      end
-
-    end
 
     context "for Conjured items" do
 
