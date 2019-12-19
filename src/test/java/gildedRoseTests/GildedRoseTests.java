@@ -9,7 +9,7 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusDoesNoteChangeTheName() {
-        Item[] items = new Item[] { new Item("foo", 0, 0) };
+        Item[] items = new Item[]{new Item("foo", 0, 0)};
         TestableGildedRose app = new TestableGildedRose(items);
 
         app.updateQuality();
@@ -21,7 +21,7 @@ public class GildedRoseTests {
     public void updateStatusDoesNotLowerQualityBelowZero() {
         Item item1 = new Item("Ordinary Item 1", 10, 0);
         Item item2 = new Item("Ordinary Item 2", -10, 0);
-        Item[] items = new Item[] {item1, item2};
+        Item[] items = new Item[]{item1, item2};
 
         new GildedRose(items).updateQuality();
 
@@ -32,31 +32,31 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusDoesNotIncreaseQualityAboveFifty() {
-        Item item1 = new Item("Aged Brie", 10, 49);
-        Item item2 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49);
-        Item[] items = new Item[] {item1, item2};
+        Item brie = new Item("Aged Brie", 10, 49);
+        Item backstagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49);
+        Item[] items = new Item[]{brie, backstagePass};
 
         new GildedRose(items).updateQuality();
 
-        assertEquals(50, item1.quality);
-        assertEquals(50, item2.quality);
+        assertEquals(50, brie.quality);
+        assertEquals(50, backstagePass.quality);
     }
 
     @Test
     public void updateStatusLowersExpirationDateByOneExceptForSulfurasItem() {
-        Item item1 = new Item("Aged Brie", 10, 1);
-        Item item2 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 1);
-        Item item3 = new Item("Ordinary Item", 10, 1);
-        Item item4 = new Item("Sulfuras, Hand of Ragnaros", 10, 1);
+        Item brie = new Item("Aged Brie", 10, 1);
+        Item backstagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 1);
+        Item ordinaryItem = new Item("Ordinary Item", 10, 1);
+        Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 10, 1);
 
-        Item[] items = new Item[] {item1, item2, item3, item4};
+        Item[] items = new Item[]{brie, backstagePass, ordinaryItem, sulfuras};
 
         new GildedRose(items).updateQuality();
 
-        assertEquals(9, item1.sellIn);
-        assertEquals(9, item2.sellIn);
-        assertEquals(9, item3.sellIn);
-        assertEquals(10, item4.sellIn);
+        assertEquals(9, brie.sellIn);
+        assertEquals(9, backstagePass.sellIn);
+        assertEquals(9, ordinaryItem.sellIn);
+        assertEquals(10, sulfuras.sellIn);
     }
 
     // Non-Specialized Items
@@ -65,7 +65,7 @@ public class GildedRoseTests {
     public void updateStatusForNonSpecializedItemsLowersQualityByOneIfItemNotExpired() {
         Item item1 = new Item("Ordinary Item 1", 10, 10);
         Item item2 = new Item("Ordinary Item 2", 1, 10);
-        Item[] items = new Item[] {item1, item2};
+        Item[] items = new Item[]{item1, item2};
 
         new GildedRose(items).updateQuality();
 
@@ -77,7 +77,7 @@ public class GildedRoseTests {
     public void updateStatusForNonSpecializedItemsLowersQualityByTwoIfItemExpired() {
         Item item1 = new Item("Ordinary Item 1", 0, 10);
         Item item2 = new Item("Ordinary Item 2", -10, 10);
-        Item[] items = new Item[] {item1, item2};
+        Item[] items = new Item[]{item1, item2};
 
         new GildedRose(items).updateQuality();
 
@@ -89,8 +89,8 @@ public class GildedRoseTests {
     public void updateStatusForNonSpecializedItemsLowersExpirationDateByOne() {
         Item item1 = new Item("Ordinary Item 1", 10, 10);
         Item item2 = new Item("Ordinary Item 2", 1, 10);
-        Item item3 = new Item("Ordinary Item 1", -10, -10);
-        Item[] items = new Item[] {item1, item2, item3};
+        Item item3 = new Item("Ordinary Item 3", -10, -10);
+        Item[] items = new Item[]{item1, item2, item3};
 
         new GildedRose(items).updateQuality();
 
@@ -100,8 +100,29 @@ public class GildedRoseTests {
     }
 
     // Aged Brie
+    @Test
+    public void updateStatusForAgedBrieIncreasesQualityByOneIfNotExpired() {
+        Item brie1 = new Item("Aged Brie", 10, 10);
+        Item brie2 = new Item("Aged Brie", 1, 10);
+        Item[] items = new Item[]{brie1, brie2};
 
+        new GildedRose(items).updateQuality();
 
+        assertEquals(11, brie1.quality);
+        assertEquals(11, brie2.quality);
+    }
+
+    @Test
+    public void updateStatusForAgedBrieIncreasesQualityByTwoIfExpired() {
+        Item brie1 = new Item("Aged Brie", 0, 10);
+        Item brie2 = new Item("Aged Brie", -10, 10);
+        Item[] items = new Item[]{brie1, brie2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(12, brie1.quality);
+        assertEquals(12, brie2.quality);
+    }
 
 }
 
@@ -131,14 +152,6 @@ public class GildedRoseTests {
         expect(item_2.quality).to eq 2
       end
 
-      it "lowers the sell_in date by 1" do
-        item = Item.new("Aged Brie", 10, 45)
-        items = [item]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item.sell_in).to eq 9
-      end
 
     end
 
