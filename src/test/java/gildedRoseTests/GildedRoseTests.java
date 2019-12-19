@@ -9,7 +9,9 @@ public class GildedRoseTests {
     public void updateStatusDoesNoteChangeTheName() {
         Item[] items = new Item[] { new Item("foo", 0, 0) };
         TestableGildedRose app = new TestableGildedRose(items);
+
         app.updateQuality();
+
         assertEquals("foo", app.getItems()[0].name);
     }
 
@@ -28,7 +30,6 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForNonSpecializedItemsLowersQualityByOneIfItemNotExpired() {
-
         Item item1 = new Item("Ordinary Item 1", 10, 10);
         Item item2 = new Item("Ordinary Item 2", 1, 10);
         Item[] items = new Item[] {item1, item2};
@@ -41,7 +42,6 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForNonSpecializedItemsLowersQualityByTwoIfItemExpired() {
-
         Item item1 = new Item("Ordinary Item 1", 0, 10);
         Item item2 = new Item("Ordinary Item 2", -10, 10);
         Item[] items = new Item[] {item1, item2};
@@ -52,22 +52,24 @@ public class GildedRoseTests {
         assertEquals(8, item2.quality);
     }
 
+    @Test
+    public void updateStatusForNonSpecializedItemsLowersExpirationDateByOne() {
+        Item item1 = new Item("Ordinary Item 1", 10, 10);
+        Item item2 = new Item("Ordinary Item 2", 1, 10);
+        Item item3 = new Item("Ordinary Item 1", -10, -10);
+        Item[] items = new Item[] {item1, item2, item3};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(9, item1.sellIn);
+        assertEquals(0, item2.sellIn);
+        assertEquals(-11, item3.sellIn);
+    }
 
 }
 
 
 /*
-
-      it "lowers the quality by 2 if the sell_in date is 0 or less" do
-        item_1 = Item.new("Ordinary Item", 0, 5)
-        item_2 = Item.new("Ordinary Item", -1, 5)
-        items = [item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 3
-        expect(item_2.quality).to eq 3
-      end
 
       it "lowers the sell_in date by 1" do
         item = Item.new("Ordinary Item", 10, 5)
