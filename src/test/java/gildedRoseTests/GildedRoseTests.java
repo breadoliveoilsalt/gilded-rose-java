@@ -42,6 +42,23 @@ public class GildedRoseTests {
         assertEquals(50, item2.quality);
     }
 
+    @Test
+    public void updateStatusLowersExpirationDateByOneExceptForSulfurasItem() {
+        Item item1 = new Item("Aged Brie", 10, 1);
+        Item item2 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 1);
+        Item item3 = new Item("Ordinary Item", 10, 1);
+        Item item4 = new Item("Sulfuras, Hand of Ragnaros", 10, 1);
+
+        Item[] items = new Item[] {item1, item2, item3, item4};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(9, item1.sellIn);
+        assertEquals(9, item2.sellIn);
+        assertEquals(9, item3.sellIn);
+        assertEquals(10, item4.sellIn);
+    }
+
     // Non-Specialized Items
 
     @Test
@@ -82,6 +99,9 @@ public class GildedRoseTests {
         assertEquals(-11, item3.sellIn);
     }
 
+    // Aged Brie
+
+
 
 }
 
@@ -90,16 +110,6 @@ public class GildedRoseTests {
 
     context "for Aged Brie" do
 
-      it "does not increase the quality of Aged Brie beyond 50" do
-        item_1 = Item.new("Aged Brie", 10, 50)
-        item_2 = Item.new("Aged Brie", 10, 49)
-        items = [item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 50
-        expect(item_2.quality).to eq 50
-      end
 
       it "increases the quality of Aged Brie by 1 if the sell_in date is greater than 0" do
         item = Item.new("Aged Brie", 1, 45)
