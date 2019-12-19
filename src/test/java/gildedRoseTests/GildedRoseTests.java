@@ -125,8 +125,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForBackstagePassesIncreasesQualityByOneIfMoreThanTenDaysToExpiration() {
-        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 0   );
-        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 20, 0   );
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 0);
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 20, 0);
         Item[] items = new Item[]{backstagePass1, backstagePass2};
 
         new GildedRose(items).updateQuality();
@@ -137,8 +137,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForBackstagePassesIncreasesQualityByTwoIfSixToTenDaysToExpiration() {
-        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 6, 0   );
-        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0   );
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 6, 0);
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0);
         Item[] items = new Item[]{backstagePass1, backstagePass2};
 
         new GildedRose(items).updateQuality();
@@ -149,8 +149,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForBackstagePassesIncreasesQualityByThreeIfOneToFiveDaysToExpiration() {
-        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 0   );
-        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0   );
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 0);
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0);
         Item[] items = new Item[]{backstagePass1, backstagePass2};
 
         new GildedRose(items).updateQuality();
@@ -161,8 +161,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForBackstagePassesDecreasesQualityToZeroUponExpiration() {
-        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10   );
-        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", -10, 10   );
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10);
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", -10, 10);
         Item[] items = new Item[]{backstagePass1, backstagePass2};
 
         new GildedRose(items).updateQuality();
@@ -173,8 +173,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForBackstagePassesDoesNotIncreaseQualityAboveFifty() {
-        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 50   );
-        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49   );
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 50);
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49);
         Item[] items = new Item[]{backstagePass1, backstagePass2};
 
         new GildedRose(items).updateQuality();
@@ -185,8 +185,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForBackstagePassesDoesNotDecreaseQualityBelowZero() {
-        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0   );
-        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", -10, 0   );
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0);
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", -10, 0);
         Item[] items = new Item[]{backstagePass1, backstagePass2};
 
         new GildedRose(items).updateQuality();
@@ -277,4 +277,3 @@ public class GildedRoseTests {
         assertEquals(-11, conjuredItem3.sellIn);
     }
 }
-
