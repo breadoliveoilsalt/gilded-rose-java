@@ -190,50 +190,32 @@ public class GildedRoseTests {
         assertEquals(-80, sulfuras2.quality);
         assertEquals(-10, sulfuras2.sellIn);
     }
+
+    // Conjured Items
+
+    @Test
+    public void updateStatusForConjuredItemsLowersQualityByTwoIfItemNotExpired() {
+        Item conjured1 = new Item("Conjured Item 1", 10, 10);
+        Item conjured2 = new Item("Conjured Item 2", 1, 10);
+        Item[] items = new Item[]{conjured1, conjured2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(8, conjured1.quality);
+        assertEquals(8, conjured2.quality);
+    }
+
+    @Test
+    public void updateStatusForConjuredItemsLowersQualityByFourIfItemIsExpired() {
+        Item conjured1 = new Item("Conjured Item 1", 0, 10);
+        Item conjured2 = new Item("Conjured Item 2", -10, 10);
+        Item[] items = new Item[]{conjured1, conjured2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(6, conjured1.quality);
+        assertEquals(6, conjured2.quality);
+    }
 }
 
 
-/*
-
-    context "for Conjured items" do
-
-      it "lowers the quality by 2 if the sell_in date is greater than 0" do
-        item_1 = Item.new("Conjured Item", 10, 5)
-        item_2 = Item.new("Conjured Item", 1, 5)
-        items = [item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 3
-        expect(item_2.quality).to eq 3
-      end
-
-      it "lowers the quality by 4 if the sell_in date is 0 or less" do
-        item_1 = Item.new("Conjured Item", 0, 5)
-        item_2 = Item.new("Conjured Item", -10, 5)
-        items = [item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 1
-        expect(item_2.quality).to eq 1
-      end
-
-      it "lowers the sell_in date by 1" do
-        item = Item.new("Ordinary Item", 10, 5)
-        items = [item]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item.sell_in).to eq 9
-      end
-
-    end
-
-  end
-
-end
-
-
-
- */
