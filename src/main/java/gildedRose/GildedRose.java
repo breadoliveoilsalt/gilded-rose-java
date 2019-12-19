@@ -36,21 +36,19 @@ public class GildedRose {
                 } else {
                     item.quality = 0;
                 }
-                items[i].sellIn = items[i].sellIn - 1;
+                item.sellIn = items[i].sellIn - 1;
                 continue;
             }
 
-            if (items[i].quality > 0) {
-                items[i].quality = items[i].quality - 1;
-            }
-
-            items[i].sellIn = items[i].sellIn - 1;
-
-            if (items[i].sellIn < 0) {
-                if (items[i].quality > 0) {
-                    items[i].quality = items[i].quality - 1;
+            if (item.quality > 0) {
+                if (item.sellIn <= 0) {
+                    item.quality = Math.max(item.quality - 2, 0);
+                } else {
+                    item.quality = Math.max(item.quality - 1, 0);
                 }
+
             }
+            item.sellIn = item.sellIn - 1;
         }
     }
 }
