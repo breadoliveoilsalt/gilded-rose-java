@@ -150,7 +150,18 @@ public class GildedRoseTests {
         assertEquals(2, backstagePass1.quality);
         assertEquals(2, backstagePass2.quality);
     }
-    
+
+    @Test
+    public void updateStatusForBackstagePassesIncreasesQualityByThreeIfOneToFiveDaysToExpiration() {
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0   );
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 0   );
+        Item[] items = new Item[]{backstagePass1, backstagePass2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(3, backstagePass1.quality);
+        assertEquals(3, backstagePass2.quality);
+    }
 
 
 }
@@ -162,17 +173,6 @@ public class GildedRoseTests {
 
     context "for Backstage passes" do
 
-
-      it "increases the quality by 2 if the sell_in date is from 6 to 10" do
-        item_1 = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 0)
-        item_2 = Item.new("Backstage passes to a TAFKAL80ETC concert", 6, 0)
-        items = [item_1, item_2]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item_1.quality).to eq 2
-        expect(item_2.quality).to eq 2
-      end
 
       it "increases the quality by 3 if the sell_in date is from 1 to 5" do
         item_1 = Item.new("Backstage passes to a TAFKAL80ETC concert", 1, 0)
