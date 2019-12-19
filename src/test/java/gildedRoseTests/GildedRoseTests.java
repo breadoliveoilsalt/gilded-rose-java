@@ -195,8 +195,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForConjuredItemsLowersQualityByTwoIfItemNotExpired() {
-        Item conjured1 = new Item("Conjured Item 1", 10, 10);
-        Item conjured2 = new Item("Conjured Item 2", 1, 10);
+        Item conjured1 = new Item("Conjured Item", 10, 10);
+        Item conjured2 = new Item("Conjured Item", 1, 10);
         Item[] items = new Item[]{conjured1, conjured2};
 
         new GildedRose(items).updateQuality();
@@ -207,8 +207,8 @@ public class GildedRoseTests {
 
     @Test
     public void updateStatusForConjuredItemsLowersQualityByFourIfItemIsExpired() {
-        Item conjured1 = new Item("Conjured Item 1", 0, 10);
-        Item conjured2 = new Item("Conjured Item 2", -10, 10);
+        Item conjured1 = new Item("Conjured Item", 0, 10);
+        Item conjured2 = new Item("Conjured Item", -10, 10);
         Item[] items = new Item[]{conjured1, conjured2};
 
         new GildedRose(items).updateQuality();
