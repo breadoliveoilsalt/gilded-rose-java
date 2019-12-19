@@ -17,25 +17,6 @@ public class GildedRoseTests {
         assertEquals("foo", app.getItems()[0].name);
     }
 
-    @Test
-    public void updateStatusLowersExpirationDateByOneExceptForSulfurasItem() {
-        Item ordinaryItem = new Item("Ordinary Item", 10, 1);
-        Item brie = new Item("Aged Brie", 10, 1);
-        Item backstagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 1);
-        Item conjuredItem = new Item("Conjured Item", 10, 1);
-        Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 10, 1);
-
-        Item[] items = new Item[]{ordinaryItem, brie, backstagePass, conjuredItem, sulfuras};
-
-        new GildedRose(items).updateQuality();
-
-        assertEquals(9, ordinaryItem.sellIn);
-        assertEquals(9, brie.sellIn);
-        assertEquals(9, backstagePass.sellIn);
-        assertEquals(9, conjuredItem.sellIn);
-        assertEquals(10, sulfuras.sellIn);
-    }
-
     // Non-Specialized Items
 
     @Test
@@ -126,6 +107,20 @@ public class GildedRoseTests {
         assertEquals(50, brie2.quality);
     }
 
+    @Test
+    public void updateStatusForAgedBrieLowersExpirationDateByOne() {
+        Item brie1 = new Item("Aged Brie", 10, 10);
+        Item brie2 = new Item("Aged Brie", 1, 10);
+        Item brie3 = new Item("Aged Brie", -10, -10);
+        Item[] items = new Item[]{brie1, brie2, brie3};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(9, brie1.sellIn);
+        assertEquals(0, brie2.sellIn);
+        assertEquals(-11, brie3.sellIn);
+    }
+
     // Backstage Passes
 
     @Test
@@ -200,6 +195,20 @@ public class GildedRoseTests {
         assertEquals(0, backstagePass2.quality);
     }
 
+    @Test
+    public void updateStatusForBackstagePassesLowersExpirationDateByOne() {
+        Item backstagePass1 = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10);
+        Item backstagePass2 = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 10);
+        Item backstagePass3 = new Item("Backstage passes to a TAFKAL80ETC concert", -10, -10);
+        Item[] items = new Item[]{backstagePass1, backstagePass2, backstagePass3};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(9, backstagePass1.sellIn);
+        assertEquals(0, backstagePass2.sellIn);
+        assertEquals(-11, backstagePass3.sellIn);
+    }
+
     // Sulfuras
 
     @Test
@@ -252,6 +261,20 @@ public class GildedRoseTests {
 
         assertEquals(0, conjured1.quality);
         assertEquals(0, conjured2.quality);
+    }
+
+    @Test
+    public void updateStatusForConjuredItemsLowersExpirationDateByOne() {
+        Item conjuredItem1 = new Item("Conjured Item", 10, 10);
+        Item conjuredItem2 = new Item("Conjured Item", 1, 10);
+        Item conjuredItem3 = new Item("Conjured Item", -10, -10);
+        Item[] items = new Item[]{conjuredItem1, conjuredItem2, conjuredItem3};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(9, conjuredItem1.sellIn);
+        assertEquals(0, conjuredItem2.sellIn);
+        assertEquals(-11, conjuredItem3.sellIn);
     }
 }
 
