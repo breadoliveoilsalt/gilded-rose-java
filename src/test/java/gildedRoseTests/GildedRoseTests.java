@@ -66,21 +66,24 @@ public class GildedRoseTests {
         assertEquals(-11, item3.sellIn);
     }
 
+    @Test
+    public void updateStatusForAgedBrieDoesNotIncreaseQualityBeyondFifty() {
+        Item item1 = new Item("Aged Brie", 10, 50);
+        Item item2 = new Item("Aged Brie", 10, 49);
+        Item item3 = new Item("Aged Brie", -10, 49);
+        Item[] items = new Item[] {item1, item2, item3};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(50, item1.quality);
+        assertEquals(50, item2.quality);
+        assertEquals(50, item3.quality);
+    }
+
 }
 
 
 /*
-
-      it "lowers the sell_in date by 1" do
-        item = Item.new("Ordinary Item", 10, 5)
-        items = [item]
-
-        GildedRose.new(items).update_quality()
-
-        expect(item.sell_in).to eq 9
-      end
-
-    end
 
     context "for Aged Brie" do
 
