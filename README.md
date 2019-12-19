@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/breadoliveoilsalt/gilded-rose-java.svg?branch=master)](https://travis-ci.com/breadoliveoilsalt/gilded-rose-java)
+[![Build Status](https://travis-ci.com/breadoliveoilsalt/gilded-rose-java.svg?branch=191218refactoring)](https://travis-ci.com/breadoliveoilsalt/gilded-rose-java)
 
 # Gilded Rose in Java
 
