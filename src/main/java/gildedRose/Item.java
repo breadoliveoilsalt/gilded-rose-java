@@ -17,4 +17,8 @@ public class Item {
         this.updateStrategy = updateStrategy;
     }
 
+    public void update() {
+        updateStrategy.update(this);
+    }
+
 }
