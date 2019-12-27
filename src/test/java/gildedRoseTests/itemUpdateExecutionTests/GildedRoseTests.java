@@ -227,54 +227,54 @@ public class GildedRoseTests {
 
     // Conjured Items
 
-//    @Test
-//    public void updateStatusForConjuredItemsLowersQualityByTwoIfItemNotExpired() {
-//        Item conjured1 = new Item("Conjured Item", 10, 10);
-//        Item conjured2 = new Item("Conjured Item", 1, 10);
-//        Item[] items = new Item[]{conjured1, conjured2};
-//
-//        new GildedRose(items).updateQuality();
-//
-//        assertEquals(8, conjured1.quality);
-//        assertEquals(8, conjured2.quality);
-//    }
-//
-//    @Test
-//    public void updateStatusForConjuredItemsLowersQualityByFourIfItemIsExpired() {
-//        Item conjured1 = new Item("Conjured Item", 0, 10);
-//        Item conjured2 = new Item("Conjured Item", -10, 10);
-//        Item[] items = new Item[]{conjured1, conjured2};
-//
-//        new GildedRose(items).updateQuality();
-//
-//        assertEquals(6, conjured1.quality);
-//        assertEquals(6, conjured2.quality);
-//    }
-//
-//    @Test
-//    public void updateStatusForConjuredItemsDoesNoteLowersQualityBelowZero() {
-//        Item conjured1 = new Item("Conjured Item", 0, 0);
-//        Item conjured2 = new Item("Conjured Item", -10, 0);
-//        Item[] items = new Item[]{conjured1, conjured2};
-//
-//        new GildedRose(items).updateQuality();
-//
-//        assertEquals(0, conjured1.quality);
-//        assertEquals(0, conjured2.quality);
-//    }
-//
-//    @Test
-//    public void updateStatusForConjuredItemsLowersExpirationDateByOne() {
-//        Item conjuredItem1 = new Item("Conjured Item", 10, 10);
-//        Item conjuredItem2 = new Item("Conjured Item", 1, 10);
-//        Item conjuredItem3 = new Item("Conjured Item", -10, -10);
-//        Item[] items = new Item[]{conjuredItem1, conjuredItem2, conjuredItem3};
-//
-//        new GildedRose(items).updateQuality();
-//
-//        assertEquals(9, conjuredItem1.sellIn);
-//        assertEquals(0, conjuredItem2.sellIn);
-//        assertEquals(-11, conjuredItem3.sellIn);
-//    }
+    @Test
+    public void updateStatusForConjuredItemsLowersQualityByTwoIfItemNotExpired() {
+        Item conjured1 = new Item("Conjured Item", 10, 10);
+        Item conjured2 = new Item("Conjured Item", 1, 10);
+        Item[] items = new Item[]{conjured1, conjured2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(8, conjured1.quality);
+        assertEquals(8, conjured2.quality);
+    }
+
+    @Test
+    public void updateStatusForConjuredItemsLowersQualityByFourIfItemIsExpired() {
+        Item conjured1 = new Item("Conjured Item", 0, 10);
+        Item conjured2 = new Item("Conjured Item", -10, 10);
+        Item[] items = new Item[]{conjured1, conjured2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(6, conjured1.quality);
+        assertEquals(6, conjured2.quality);
+    }
+
+    @Test
+    public void updateStatusForConjuredItemsDoesNoteLowersQualityBelowZero() {
+        Item conjured1 = new Item("Conjured Item", 0, 0);
+        Item conjured2 = new Item("Conjured Item", -10, 0);
+        Item[] items = new Item[]{conjured1, conjured2};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(0, conjured1.quality);
+        assertEquals(0, conjured2.quality);
+    }
+
+    @Test
+    public void updateStatusForConjuredItemsLowersExpirationDateByOne() {
+        Item conjuredItem1 = new Item("Conjured Item", 10, 10);
+        Item conjuredItem2 = new Item("Conjured Item", 1, 10);
+        Item conjuredItem3 = new Item("Conjured Item", -10, -10);
+        Item[] items = new Item[]{conjuredItem1, conjuredItem2, conjuredItem3};
+
+        new GildedRose(items).updateQuality();
+
+        assertEquals(9, conjuredItem1.sellIn);
+        assertEquals(0, conjuredItem2.sellIn);
+        assertEquals(-11, conjuredItem3.sellIn);
+    }
 }
 
