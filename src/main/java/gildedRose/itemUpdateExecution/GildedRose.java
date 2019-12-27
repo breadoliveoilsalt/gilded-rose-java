@@ -1,4 +1,6 @@
-package gildedRose;
+package gildedRose.itemUpdateExecution;
+
+import gildedRose.itemUpdateStrategies.*;
 
 public class GildedRose {
     protected Item[] items;

@@ -1,4 +1,6 @@
-package gildedRose;
+package gildedRose.itemUpdateExecution;
+
+import gildedRose.itemUpdateStrategies.ItemUpdateStrategy;
 
 public class Item {
 

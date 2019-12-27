@@ -1,4 +1,6 @@
-package gildedRose;
+package gildedRose.itemUpdateStrategies;
+
+import gildedRose.itemUpdateExecution.Item;
 
 public class AgedBrieUpdateStrategy implements ItemUpdateStrategy {
 

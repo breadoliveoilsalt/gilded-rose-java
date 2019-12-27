@@ -1,5 +1,5 @@
-package gildedRoseTests; import gildedRose.GildedRose;
-import gildedRose.Item;
+package gildedRoseTests.itemUpdateExecutionTests; import gildedRose.itemUpdateExecution.GildedRose;
+import gildedRose.itemUpdateExecution.Item;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
