@@ -1,7 +1,7 @@
-package gildedRoseTests;
+package gildedRoseTests.itemUpdateExecutionTests;
 
-import gildedRose.GildedRose;
-import gildedRose.Item;
+import gildedRose.itemUpdateExecution.GildedRose;
+import gildedRose.itemUpdateExecution.Item;
 
 public class TestableGildedRose extends GildedRose {
 
