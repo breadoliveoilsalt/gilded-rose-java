@@ -5,14 +5,16 @@ import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 public class GildedRose {
+
     protected Item[] items;
+    private HashMap<String, Callable<ItemUpdateStrategy>> specializedStrategyMap;
+    private Callable<ItemUpdateStrategy> defaultStrategy;
 
     public GildedRose(Item[] items) {
         this.items = items;
         setSpecializedStrategyMap();
+        setDefaultStrategy();
     }
-
-    private HashMap<String, Callable<ItemUpdateStrategy>> specializedStrategyMap;
 
     private void setSpecializedStrategyMap() {
         specializedStrategyMap = new HashMap();
@@ -22,18 +24,14 @@ public class GildedRose {
         specializedStrategyMap.put("Conjured Item", ConjuredItemUpdateStrategy::new);
     }
 
-    private Callable<ItemUpdateStrategy> defaultStrategy() {
-        return DefaultItemUpdateStrategy::new;
+    private void setDefaultStrategy() {
+        defaultStrategy = DefaultItemUpdateStrategy::new;
     }
 
     public void updateQuality() {
         try {
-            for (int i = 0; i < items.length; i++) {
-                Item item = items[i];
-                Callable<ItemUpdateStrategy> strategy = specializedStrategyMap.get(item.name);
-                if (strategy == null) {
-                    strategy = defaultStrategy();
-                }
+            for (Item item: items) {
+                Callable<ItemUpdateStrategy> strategy = specializedStrategyMap.getOrDefault(item.name, defaultStrategy);
                 item.setUpdateStrategy(strategy.call());
                 item.update();
             }
@@ -41,4 +39,5 @@ public class GildedRose {
             e.printStackTrace();
         }
     }
+
 }
